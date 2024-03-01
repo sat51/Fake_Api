@@ -81,7 +81,7 @@ const getCartInRange = async(req:Request,res:Response) =>{
     console.log(startDateparam);
     console.log(endDateparam);
     try{
-        const result = await handleCartInRange(startDateparam,endDateparam);
+        const result:IOrder | null | IOrder[] = await handleCartInRange(startDateparam,endDateparam);
         res.status(200).json({result});
     }catch(err:any){
         res.status(500).json({err});

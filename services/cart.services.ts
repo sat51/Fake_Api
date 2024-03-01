@@ -3,7 +3,7 @@ import { IOrder, OrderModel } from "../models/cart.model";
 
 
 
-const handleaddCart = async (cartData: Partial<IOrder>, userId: string) => {
+const handleaddCart = async (cartData: Partial<IOrder>, userId: string):Promise<IOrder> => {
     try {
         cartData.userId = userId;
         const newCart = new OrderModel(
@@ -46,9 +46,9 @@ const handleupdateSingleCart = async (cartId: string, cartData: Partial<IOrder>)
     }
 }
 
-const handleDeleteSingleCart = async (cartId: string) => {
+const handleDeleteSingleCart = async (cartId: string):Promise<IOrder | null > => {
     try {
-        const result = await OrderModel.findByIdAndDelete(cartId);
+        const result : IOrder | null = await OrderModel.findByIdAndDelete(cartId);
         return result;
     } catch (err: any) {
         throw err;
@@ -64,7 +64,7 @@ const handleUserCart = async (userId: string) => {
     }
 }
 
-const handleSortCarts = async (cartOrder: string) => {
+const handleSortCarts = async (cartOrder: string) :Promise<IOrder[]>=> {
     try {
         let query: Query<IOrder[], IOrder> = OrderModel.find();
 
