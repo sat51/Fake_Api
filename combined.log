@@ -1,0 +1,16 @@
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-02-28%20&%20endDate%20=%202024-02-29, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-02-28%20&%20endDate%20=%202024-02-29, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-02-28%20&%20endDate%20=%202024-02-29, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-02-28%20&%20endDate%20=%202024-02-29, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-02-28&endDate%20=%202024-02-29, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-02-28&endDate=2024-02-29, Status:200"}
+{"level":"info","message":"Method: POST, Path: /cart/add, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-02-28&endDate=2024-02-29, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-02-28&endDate=2024-03-01, Status:200"}
+{"level":"info","message":"Method: POST, Path: /cart/add, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-01-28&endDate=2024-01-29, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-01-28&endDate=2024-02-29, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-02-28&endDate=2024-02-29, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2024-02-28&endDate=2024-02-30, Status:200"}
+{"level":"info","message":"Method: POST, Path: /cart/add, Status:200"}
+{"level":"info","message":"Method: GET, Path: /cart/range?startDate=2021-00-28&endDate=2024-02-30, Status:200"}

@@ -4,13 +4,15 @@ import connectDb from './connection';
 import user from '../routes/user.route'
 //import auth from '../middlewares/auth.middleware'
 import productRoute from '../routes/product.routes'
-//import cart from '../routes/cart.routes'
+import cart from '../routes/cart.routes'
+import { loggingMiddleware } from '../utils/api_handler';
 // Initialize Express application
 const app: Application = express();
 
 connectDb();
 
-
+app.use(loggingMiddleware);
+app.use('/cart',cart);
 app.use('/user',user);
 app.use('/product',productRoute);
 // app.use('/cart',cart)

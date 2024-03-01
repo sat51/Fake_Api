@@ -1,9 +1,9 @@
 import { ProductModel,IProduct } from '../models/product.model'
 import { Query } from 'mongoose';
 
-const handleSingle = async(data:string) =>{
+const handleSingle = async(productId:string) =>{
         try{
-            const result = await ProductModel.findById(data);
+            const result = await ProductModel.findById(productId);
             return result;
         }catch(err:any){
             throw err;

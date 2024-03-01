@@ -52,7 +52,7 @@ const handleLogin = async(data:Partial<IUser>) =>{
     }
 }
 
-const handlegetAll = async():Promise<IUser[]> => {
+const handlegetAll = async():Promise<IUser[] | null> => {
     try{
         const result:IUser[] = await UserModel.find();
         return result;
@@ -62,7 +62,7 @@ const handlegetAll = async():Promise<IUser[]> => {
     }
 }
 
-const handleSingle = async(id:string | null):Promise<IUser | null>=> {
+const handleSingleUser = async(id:string | null):Promise<IUser | null>=> {
     try{
         const result = await UserModel.findById(id);
         // console.log(result);
@@ -73,9 +73,41 @@ const handleSingle = async(id:string | null):Promise<IUser | null>=> {
         throw err;
     }
 }
+const handleLimitedUser = async(data_limit:string):Promise<IUser[] | null> =>{
+     try{
+        const limited = parseInt(data_limit,10);
+        const result = await UserModel.find().limit(limited);
+        return result;
+     }
+     catch(err:any){
+        throw err;
+     }
+}
+
+const handleUpdateUser = async(userid:string, data:Partial<IUser>):Promise<IUser|null> =>{
+    try{
+        const result = await UserModel.findByIdAndUpdate(userid,data,{new:true});
+        return result;
+    }
+    catch(err:any){
+        throw err;
+    }
+}
+
+const handledeleteUser = async(userid:string) =>{
+    try{
+        const result = await UserModel.findByIdAndDelete(userid);
+        return "user deleted ";
+    }catch(err:any){
+        throw err;
+    }
+    
+    
+
+}
 
 export { handleaddUser,
-    handleLogin,handlegetAll,handleSingle};
+    handleLogin,handlegetAll,handleSingleUser,handleLimitedUser,handleUpdateUser,handledeleteUser};
 
 
 

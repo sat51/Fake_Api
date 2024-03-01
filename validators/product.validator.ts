@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import Joi, { Schema } from 'joi';
 import { IProduct } from '../models/product.model'; // Assuming IProduct is the interface for product model
 import { IUser } from '../models/user_model';
-// import { IOrder } from '../models/cart.model';
+import { IOrder } from '../models/cart.model';
 
 
 
@@ -21,11 +21,11 @@ const ProductItemSchema = Joi.object({
 });
 
 // Define a Joi schema for the order
-// const OrderSchema :Schema<IOrder>= Joi.object({
-//     // userId: Joi.string().required(),
-//     date: Joi.string().required(),
-//     products: Joi.array().items(ProductItemSchema).required()
-// });
+const OrderSchema :Schema<IOrder>= Joi.object({
+    // userId: Joi.string().required(),
+    date: Joi.string().required(),
+    products: Joi.array().items(ProductItemSchema).required()
+});
 
 //user validator
 
@@ -56,7 +56,7 @@ const UserSchemaJoi:Schema<IUser> = Joi.object({
 
 
 
-export  {productSchema,UserSchemaJoi};
+export  {productSchema,UserSchemaJoi,OrderSchema};
 
 
 

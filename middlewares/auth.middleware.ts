@@ -4,9 +4,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-interface AuthenticatedRequest extends Request {
-    userId: string; // Assuming userId is a string
-}
 
 
 const auth = (req: Request, res: Response, next: NextFunction) => {
@@ -26,7 +23,7 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
         // console.log(userId);
 
         // Attach the user ID to the request object for further use in subsequent middleware or routes
-        (req as  AuthenticatedRequest).userId = userId;
+        req.userId = userId;
 
         // Call the next middleware or route handler
         next();
@@ -37,5 +34,5 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
 
 
 
-    export {auth,AuthenticatedRequest};
+    export {auth};
     
