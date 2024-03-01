@@ -6,11 +6,13 @@ import user from '../routes/user.route'
 import productRoute from '../routes/product.routes'
 import cart from '../routes/cart.routes'
 import { loggingMiddleware } from '../utils/api_handler';
+import { rateLimiterUsingThirdParty } from '../middlewares/rateLimit';
 // Initialize Express application
 const app: Application = express();
 
 connectDb();
 
+app.use(rateLimiterUsingThirdParty);
 app.use(loggingMiddleware);
 app.use('/cart',cart);
 app.use('/user',user);

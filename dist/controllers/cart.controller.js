@@ -81,8 +81,9 @@ const sortCarts = async (req, res) => {
 };
 exports.sortCarts = sortCarts;
 const getCartInRange = async (req, res) => {
-    const startDateparam = req.query.startDate;
-    const endDateparam = req.query.endDate;
+    const { startDateparam, endDateparam } = req.query;
+    console.log(startDateparam);
+    console.log(endDateparam);
     try {
         const result = await (0, cart_services_1.handleCartInRange)(startDateparam, endDateparam);
         res.status(200).json({ result });
