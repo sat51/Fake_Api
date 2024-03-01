@@ -3,23 +3,39 @@ import { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 
-    const auth = (req:Request, res:Response, next:NextFunction) => {
-        //console.log(`HTTP method : ${req.method}, URL : ${req.url}`);
-        try {
-        let token = req.headers.authorization;
-        if (token) {
-            token = token.split(" ")[1];
-            let user = jwt.verify(token,process.env.JWT_SECRET!);
-            next();
-        } else { 
-            return res.json({ status: 401, msg: "unauthorize user", data: "" });
-        }
+
+interface AuthenticatedRequest extends Request {
+    userId: string; // Assuming userId is a string
+}
+
+
+const auth = (req: Request, res: Response, next: NextFunction) => {
+    try {
+        // Extract the token from the Authorization header
+        const token = req.headers.authorization?.split(" ")[1];
         
-        } catch (error:any) {
-        return res.json({ status: 500, msg: error.message, data: "" });
+        if (!token) {
+            return res.status(401).json({ message: "Unauthorized: Token not provided" });
         }
-    };
+
+        // Verify the token
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string };
+
+        // Extract the user ID from the payload
+        const { userId } = decodedToken;
+        // console.log(userId);
+
+        // Attach the user ID to the request object for further use in subsequent middleware or routes
+        (req as  AuthenticatedRequest).userId = userId;
+
+        // Call the next middleware or route handler
+        next();
+    } catch (error) {
+        return res.status(401).json({ message: "Unauthorized: Invalid token" });
+    }
+};
 
 
-    export default auth;
+
+    export {auth,AuthenticatedRequest};
     

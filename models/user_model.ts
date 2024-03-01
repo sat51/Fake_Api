@@ -16,7 +16,7 @@ const AddressSchema = new Schema({
 });
 
 // Define main schema for user data
-const UserSchema = new Schema({
+const UserSchema:Schema = new Schema({
     email: String,
     username: String,
     password: String,

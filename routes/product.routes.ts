@@ -8,7 +8,7 @@ import  { addProduct,
       getProductsByCategory, 
       getupdateProducts, 
       deleteProduct} from '../controllers/product.controller'
-import validateCreateProductSchema from '../middlewares/joi.middleware';
+import {validateCreateProductSchema }  from '../middlewares/joi.middleware';
 
 
  
