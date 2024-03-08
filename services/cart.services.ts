@@ -1,16 +1,31 @@
 import { Query } from "mongoose";
 import { IOrder, OrderModel } from "../models/cart.model";
+import { IProduct } from "../models/cart.model";
 
 
 
-const handleaddCart = async (cartData: Partial<IOrder>, userId: string):Promise<IOrder> => {
+const handleaddCart = async (cartData: Partial<IOrder>, userId: string):Promise<IOrder | string> => {
     try {
         cartData.userId = userId;
-        const newCart = new OrderModel(
-            cartData
-        );
-        const savedCart = await newCart.save();
-        return savedCart;
+        // const productIdToFind = cartData.products.some(product => product.productId === productIdToFind)
+        const check:any= await OrderModel.findOne({userId});
+      
+        
+        // if(check){
+        //     const productFound = OrderModel.find({cartData.products.some(product => product.productId === productIdToFind);})
+        // }
+        if(!check){
+            const newCart = new OrderModel(
+                cartData
+            );
+            const savedCart = await newCart.save();
+            return savedCart;
+        }
+        else{
+            return "cart already exists";
+        }
+     
+       
     }
     catch (err) {
         throw err;
@@ -93,6 +108,40 @@ const handleCartInRange = async (start_Date: any , end_Date: any): Promise<IOrde
 
 }
 
+// const addProductToCart = async(userId:string,data:any) =>{
+//     const check:any = await OrderModel.findOne({userId});
+//     const newProductId = data.productId;
+//     const validate = check.products.some(element =>
+
+//     })
+// }
+
+const addProductToCartService = async (id: string, productId:number,quantity:number) => {
+    console.log({id})
+    const cart = await OrderModel.findOne({ userId: id });
+    // console.log(cart);
+    if(!cart){
+        return new Error("cart is empty")
+    }
+    
+    const products: IProduct[]  = cart.products;
+    let found = false;
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].productId === productId) {
+        products[i].quantity = products[i].quantity + quantity;
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      products!.push({ productId: productId, quantity: quantity });
+    }
+    console.log(cart.products);
+    console.log({id});
+    const temp = await OrderModel.findOne({userId: id});
+    return OrderModel.updateOne({ userId: id }, {  products: cart.products  });
+  };
+
 export {
     handleaddCart,
     handleSingleCart,
@@ -101,5 +150,5 @@ export {
     handleDeleteSingleCart,
     handleUserCart,
     handleSortCarts,
-    handleCartInRange
+    handleCartInRange,addProductToCartService
 };

@@ -1,6 +1,6 @@
-import { IOrder, OrderModel } from "../models/cart.model";
+import { IOrder, IProduct, OrderModel } from "../models/cart.model";
 import express,{Request,Response} from 'express';
-import { handleAllCart, handleCartInRange, handleDeleteSingleCart, handleSingleCart, handleSortCarts, handleUserCart, handleaddCart, handleupdateSingleCart } from "../services/cart.services";
+import { addProductToCartService, handleAllCart, handleCartInRange, handleDeleteSingleCart, handleSingleCart, handleSortCarts, handleUserCart, handleaddCart, handleupdateSingleCart } from "../services/cart.services";
 import { handleSingle } from "../services/product.services";
 
 
@@ -88,6 +88,18 @@ const getCartInRange = async(req:Request,res:Response) =>{
     }
 }
 
+const addProductToCart = async(req:Request,res:Response)=>{
+    const userID = req.userId;
+    const productId:number= req.body.productId;
+    const quantity:number = req.body.quantity;
+    console.log({userID,productId,quantity})
+    try{
+        const result = await addProductToCartService(userID,productId,quantity);
+        res.status(200).json({result});
+    }
+    catch(err:any){
+        res.status(500).json({err:err.message});
+    }
+}
 
-
-export {addCart,getSingleCart,getAllCart,updateSingleCart,deleteSingleCart,userCart,sortCarts,getCartInRange};
+export {addCart,getSingleCart,getAllCart,updateSingleCart,deleteSingleCart,userCart,sortCarts,getCartInRange,addProductToCart};
